@@ -9,6 +9,9 @@
     --secondary-color: rgba(15,174,173,1);
 }
 
+body{
+    overflow: hidden;
+}
 a{
     opacity: 1;
     cursor: pointer;

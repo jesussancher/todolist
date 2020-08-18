@@ -17,7 +17,7 @@ class Login extends React.Component{
 
     loginUser = event => {
         event.preventDefault();
-        const url = "https://academlo-todolist.herokuapp.com/tasks/login";
+        const url = "https://academlo-todolist.herokuapp.com/login";
 
         fetch(url, {
         method: 'POST', // or 'PUT'
