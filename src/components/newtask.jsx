@@ -53,7 +53,7 @@ class NewTask extends React.Component{
     addTask = event => {
         event.preventDefault();
         
-        const url = "/tasks";
+        const url = "https://academlo-todolist.herokuapp.com/tasks/tasks";
 
         fetch(url, {
         method: 'POST', // or 'PUT'

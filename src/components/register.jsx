@@ -19,7 +19,7 @@ class Register extends React.Component{
 
     registerUser = event => {
         event.preventDefault();
-        const url = "/register";
+        const url = "https://academlo-todolist.herokuapp.com/tasks/register";
 
         fetch(url, {
         method: 'POST', // or 'PUT'
