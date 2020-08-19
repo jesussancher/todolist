@@ -5,6 +5,7 @@ import Register from './components/register'
 import Login from './components/login'
 import Lobby from './components/lobby'
 import NewTask from './components/newtask'
+import EditTask from './components/edittask'
 import Dashboard from './components/dashboard'
 
 
@@ -20,7 +21,8 @@ class App extends React.Component{
       showLobby: false,
       load: true,
       user: '',
-      tasks: ''
+      tasks: '',
+      editTask: {}
     };
     this.showChart = this.showChart.bind(this)
   }
@@ -48,6 +50,10 @@ class App extends React.Component{
 
   tasks = (task) =>{
     this.setState({tasks: task})
+  }
+
+  editTask = (task) =>{
+    this.setState({editTask: task})
   }
   userData = (usuario) => {
     this.setState({user: {
@@ -96,9 +102,13 @@ class App extends React.Component{
           <div id="newTask" className="invi flex flex-center h-100">
             <NewTask userData={this.state.user} loadSpinner={this.loadSpinner} tasks={this.tasks}/>
           </div>
+
+          <div id="editTask" className="invi flex flex-center h-100">
+            <EditTask userData={this.state.user} loadSpinner={this.loadSpinner} tasks={this.tasks} editTask={this.state.editTask}/>
+          </div>
           
           <div id="dashboard" className="h-100 invi">
-          <Dashboard userData={this.state.user} loadSpinner={this.loadSpinner} task={this.state.tasks} />
+          <Dashboard userData={this.state.user} loadSpinner={this.loadSpinner} task={this.state.tasks} editTask={this.editTask}/>
           </div>
       </div>
 

@@ -4,13 +4,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-class NewTask extends React.Component{
+class EditTask extends React.Component{
     constructor(props){
         super(props)
 
         this.state = {
-            startDate: '',
-            taskContent: '',
+            startDate: "",
+            taskContent: "",
             message: '',
         }
     }
@@ -19,9 +19,12 @@ class NewTask extends React.Component{
         this.setState({
           startDate: date
         });
+        console.log(date)
     };
 
     timePicker = () => {
+        
+
         // const [startDate, setStartDate] = useState(new Date());
         const DateInput = ({ value, onClick }) => (
             <button onClick={onClick} placeholder="Tomorrow" required>
@@ -31,13 +34,11 @@ class NewTask extends React.Component{
           <DatePicker
             selected={this.state.startDate}
             onChange={date => this.setStartDate(date)}
-            // timeInputLabel="Time:"
-            // dateFormat="MM/dd/yyyy h:mm aa"
-            // showTimeInput
             inline
             customInput={<DateInput />}
             showDisabledMonthNavigation
             minDate={new Date()}
+            isClearable
           />
         );
     };
@@ -50,13 +51,11 @@ class NewTask extends React.Component{
         });  
     }
 
-    addTask = event => {
-        event.preventDefault();
-        
-        const url = "https://academlo-todolist.herokuapp.com/tasks";
+    addTask = id => {
+        const url = "https://academlo-todolist.herokuapp.com/tasks/"+id;
 
         fetch(url, {
-        method: 'POST', // or 'PUT'
+        method: 'PUT', // or 'PUT'
         headers: {
             'Content-Type': 'application/json',
         },
@@ -73,6 +72,7 @@ class NewTask extends React.Component{
             this.registerSuccess()
             this.getTasks()
             console.log(this.props.userData.id)
+            alert(data.message)
         })
         .catch((error) => {
         console.error('Error:', error);
@@ -127,11 +127,11 @@ class NewTask extends React.Component{
 
     closeTask = () =>{
         this.props.loadSpinner(true,1000)
-        const newTask = document.getElementById("newTask")
-        const lobby = document.getElementById("lobby")
-        newTask.classList.add("invi")
+        const editTask = document.getElementById("editTask")
+        const dashboard = document.getElementById("dashboard")
+        editTask.classList.add("invi")
         const timer = setTimeout(() => {
-            lobby.classList.remove("invi")
+            dashboard.classList.remove("invi")
         }, 1500)
     }
 
@@ -145,18 +145,21 @@ class NewTask extends React.Component{
         }, 1500)
     }
 
+    event = (e) => {
+        e.preventDefault()
+    }
     render(){
         return(
             <div className="login-card shadow">
                 <a onClick={this.closeTask} className="back relative dark-green"><i class="fas fa-arrow-left"></i></a>
-                <form onSubmit={this.addTask}>
+                <form onSubmit={this.event}>
                     <h3 className="dark-green">When?</h3>
                     {this.timePicker()}
                     <br></br>
                     <h3 className="dark-green">What?</h3>
-                    <input onChange={this.handleChange} type="content" id="taskContent" name="taskContent" className="input" placeholder="Feed the fish" required></input>
+                    <input onChange={this.handleChange} type="content" id="taskContent" name="taskContent" className="input" placeholder={this.props.editTask.content} required></input>
                     <br></br>
-                    <input type="submit" className="mt-20 submit-btn" value="Add Task"></input>
+                    <input type="submit" onClick={() => this.addTask(this.props.editTask._id)} className="mt-20 submit-btn" value="Edit Task"></input>
                 </form>
                 <p></p>
             </div>
@@ -164,4 +167,4 @@ class NewTask extends React.Component{
     }
 }
 
-export default NewTask
+export default EditTask

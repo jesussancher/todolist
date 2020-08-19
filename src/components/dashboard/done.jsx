@@ -2,7 +2,7 @@ import React from 'react'
 import TaskChart from './taskchart'
 import { useState } from 'react'
 
-class ToDo extends React.Component{
+class Done extends React.Component{
     constructor(props){
         super(props)
 
@@ -114,29 +114,6 @@ class ToDo extends React.Component{
         }, 1500)
     }
 
-    doneTask = id => {
-        const url = "https://academlo-todolist.herokuapp.com/tasks/"+id;
-
-        fetch(url, {
-        method: 'PUT', // or 'PUT'
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            is_completed: true,
-          })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data)
-            this.setState({message: data.message})
-            this.getTasks()
-        })
-        .catch((error) => {
-        console.error('Error:', error);
-        })
-    }
-
     
     render(){
         return (
@@ -202,7 +179,7 @@ class ToDo extends React.Component{
                                                     <p className="date">{day}/{month}/{year}</p>
                                             </div>
                                             <div className="flex flex-center">
-                                                    <a className="submit-btn" onClick={() => this.doneTask(task._id)}>Done!</a>
+                                                    <a className="submit-btn" onClick={() => this.deleteTask(task._id)}>Done!</a>
                                             </div> 
                                         </div>
                                     </div>
@@ -217,4 +194,4 @@ class ToDo extends React.Component{
         
 }
 
-export default ToDo
+export default Done

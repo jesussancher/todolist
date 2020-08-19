@@ -1,7 +1,7 @@
 import React from 'react'
 import TaskChart from './dashboard/taskchart'
 import ToDo from './dashboard/todo'
-
+import Done from './dashboard/done'
 class Dashboard extends React.Component{
     constructor(props){
         super(props)
@@ -45,21 +45,17 @@ class Dashboard extends React.Component{
                         </div>
                     </div>
                 </div>
-                    <div className="">
-                        <div></div>
+                    <div className="grid grid-task-counter">
+                        {/* <div></div> */}
                         <div className="grid grid-dashboard"> 
                             <div className="flex flex-center"><h3 className="white">To do</h3></div>
-                            <ToDo userData={this.props.userData} tasks={this.props.task}/>
-                        </div>
-                        {/* <div className="grid grid-dashboard"> 
-                            <div className="flex flex-center"><h3 className="white">Doing</h3></div>
-                            <TaskChart />
+                            <ToDo userData={this.props.userData} tasks={this.props.task} editTask={this.props.editTask}/>
                         </div>
                         <div className="grid grid-dashboard"> 
                             <div className="flex flex-center"><h3 className="white">Done</h3></div>
-                            <TaskChart />
-                        </div> */}
-                        <div></div>
+                            <Done userData={this.props.userData} tasks={this.props.task} editTask={this.props.editTask}/>
+                        </div>
+                        {/* <div></div> */}
                     </div>
             </div>
         );
